@@ -1,0 +1,181 @@
+[
+  {
+    "id": 1,
+    "closetId": 3,
+    "outfitId": 3,
+    "type": "Tops",
+    "name": "Tanks",
+    "imgUrl": "https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvczgwLXBhaS0xNzQ5XzMucG5n.png?s=JqZoQFcuDA7W3HEq4uGlBoHsG6nqobkkaqzHOYO5z9g"
+  },
+  {
+    "id": 2,
+    "closetId": 3,
+    "outfitId": 4,
+    "type": "Tops",
+    "name": "T-Shirts",
+    "imgUrl": "https://i.pinimg.com/474x/43/99/76/439976c37cf272bc3b1aca5d55d3d8fc.jpg"
+  },
+  {
+    "id": 3,
+    "closetId": 2,
+    "outfitId": 1,
+    "type": "Tops",
+    "name": "Blouses",
+    "imgUrl": "https://p7.hiclipart.com/preview/904/214/350/blouse-t-shirt-sleeve-dress-women-s-european-border-stripe.jpg"
+  },
+  {
+    "id": 4,
+    "closetId": 2,
+    "outfitId": 2,
+    "type": "Tops",
+    "name": "Actives",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_hj80Zv1-F0PZoPecDcuRMsLkEKpnHJMCGA&usqp=CAU"
+  },
+  {
+    "id": 5,
+    "closetId": 2,
+    "type": "Tops",
+    "name": "Hoodies",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNInFrxmNgVGV6SW2vuLTVZ-ZAxLCP9xCwkQ&usqp=CAU"
+  },
+  {
+    "id": 6,
+    "closetId": 3,
+    "outfitId": 3,
+    "type": "Tops",
+    "name": "Sweatshirts",
+    "imgUrl": "https://sc04.alicdn.com/kf/H26734bad0636455eb41d00772eee32886.jpg"
+  },
+  {
+    "id": 7,
+    "closetId": 3,
+    "outfitId": 4,
+    "type": "Tops",
+    "name": "Sweaters",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfQ-CD5i52Lq7ZRcQ0u_xEyi5LUxlsyvbItw&usqp=CAU"
+  },
+  {
+    "id": 8,
+    "closetId": 2,
+    "outfitId": 1,
+    "type": "Tops",
+    "name": "Blazers",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_9WngMY7jNRPYbAbLr_yhbjczSRqaUEA7mA&usqp=CAU"
+  },
+  {
+    "id": 9,
+    "closetId": 3,
+    "type": "Tops",
+    "name": "Coats",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9lEsYcw-2WFvCrgJM7QypRR_3yFe4T2LKTg&usqp=CAU"
+  },
+  {
+    "id": 10,
+    "closetId": 2,
+    "type": "Tops",
+    "name": "Raincoats",
+    "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Raincoat-No-Background.png"
+  },
+  {
+    "id": 11,
+    "closetId": 3,
+    "type": "Tops",
+    "name": "Jackets",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4w9NVNcld0u1niH2_y0yubZdwgZBYZSYtKQ&usqp=CAU"
+  },
+
+  {
+    "id": 12,
+    "closetId": 2,
+    "outfitId": 1,
+    "type": "Bottoms",
+    "name": "Jeans",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGnUS4vJW94fkEfA5ciJCg6TwdOHek1f-pcQ&usqp=CAU"
+  },
+  {
+    "id": 13,
+    "closetId": 3,
+    "outfitId": 3,
+    "type": "Bottoms",
+    "name": "Shorts",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXhxH8ViCh6ALUwmOMtJY6N7Jx_bhz_Sd3S72I37SW8cPkCW2ZSXAiA62zugak2ZuatWM&usqp=CAU"
+  },
+  {
+    "id": 14,
+    "closetId": 3,
+    "outfitId": 4,
+    "type": "Bottoms",
+    "name": "Sweatpants",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqbGMSuLbG_ORy0qY4PxAZMiJ8IJ8sJFFcWA&usqp=CAU"
+  },
+  {
+    "id": 15,
+    "closetId": 3,
+    "outfitId": 3,
+    "type": "Bottoms",
+    "name": "Leggings",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLmS6E92PklO9Dec6OFxaQS8FVw8b2oo3qUvp_NQhpmLS7IIPx86QAiGTAAqbaYHsv3VM&usqp=CAU"
+  },
+  {
+    "id": 16,
+    "closetId": 2,
+    "outfitId": 2,
+    "type": "Bottoms",
+    "name": "Actives",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3A1Oo7aMIplGTs-5YH2EsbvF17ojIFqD3A&usqp=CAU"
+  },
+  {
+    "id": 17,
+    "closetId": 2,
+    "outfitId": 1,
+    "type": "Bottoms",
+    "name": "Pants",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLVe22xswWQS5m3SNdQFQ_UHi5Wfqx9Zix5Q&usqp=CAU"
+  },
+  {
+    "id": 18,
+    "closetId": 3,
+    "outfitId": 4,
+    "type": "Bottoms",
+    "name": "Skirts",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaC-aWEFpjK6kpV3mji7goNQx3vEst2xGEZw&usqp=CAU"
+  },
+  {
+    "id": 19,
+    "closetId": 3,
+    "outfitId": 5,
+    "type": "Jumpsuits",
+    "name": "Jumpsuits",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPgybHty3-UeZQBOn4wVx0peXjCSaPM3cLGQ&usqp=CAU"
+  },
+  {
+    "id": 20,
+    "closetId": 2,
+    "outfitId": 6,
+    "type": "Dresses",
+    "name": "Maxi",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjWin8TfCMXT7HUHKN-v4sX58v38bQH15Zbw&usqp=CAU"
+  },
+  {
+    "id": 21,
+    "closetId": 3,
+    "type": "Dresses",
+    "name": "Midi",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp2nA6tVBb2PbmQfA5AXU-zbcYP8Dd4GN9YA&usqp=CAU"
+  },
+  {
+    "id": 22,
+    "closetId": 2,
+    "outfitId": 7,
+    "type": "Dresses",
+    "name": "Short",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSODmVp7C7uJFeKn8TjSEWBenqAw9dHnZpVkw&usqp=CAU"
+  },
+  {
+    "id": 23,
+    "closetId": 3,
+    "type": "Dresses",
+    "name": "Knitwear",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-ogCxMvTxC6IHypjFjrwIx4Ajw5LHOYTbTQ&usqp=CAU"
+  }
+]

@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model Outfits {
+  id Int @id @default(autoincrement())
+  userId Int
+  user Users @relation(fields: [userId], references: [id])
+  clothingItem Closetitems[]  
+  }
+
+model Users {
+  id Int @id @default(autoincrement())
+  username String @unique
+  password String
+  closet Closet?
+  outfit Outfits[] 
+  
+}
+
+model Closet {
+  id Int @id @default(autoincrement())
+  userId Int @unique
+  user Users @relation(fields: [userId], references: [id])
+  items Closetitems[]
+
+}
+
+model Closetitems{
+  id Int @id @default(autoincrement())
+  closetId Int 
+  outfitId Int?
+  outfit Outfits? @relation(fields: [outfitId], references: [id])
+  closet Closet @relation(fields: [closetId], references: [id])
+  type String
+  name String
+  imgUrl String
+}
+
+
+
+
+
+
+
+
+
+// model User{
+//   id Int        @id @default(autoincrement())
+//   username String @unique
+//   password String
+//   outfit Outfit[]
+// }
+
+// model Category{
+// id Int        @id @default(autoincrement())
+// type String
+// name String
+// imgUrl String
+// max_temp Int
+// min_temp Int
+// isRain Boolean
+// isSporty Boolean
+// isWarm Boolean
+// outfit Outfit[]
+
+// }
+
+// model Outfit{
+// id Int        @id @default(autoincrement())
+// name String?
+// imgUrl String
+// type String //remove later
+// userId Int  
+// user User @relation(fields: [userId], references: [id])
+// categoryId Int
+// category Category @relation(fields: [categoryId], references: [id])
+// }
+
+
+
