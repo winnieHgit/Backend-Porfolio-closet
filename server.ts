@@ -9,6 +9,7 @@ import { categoryRecommendation } from "./recommendation";
 import { mapCategoryToType, Name, Type } from "./type-category-match";
 import axios from "axios";
 import apiKeys from "./secrets/APIKEYs.json";
+import { recommendOutfit } from "./create-outfit";
 
 const app = express();
 
@@ -115,20 +116,27 @@ app.get("/mycloset", AuthMiddleware, async (request: AuthRequest, response) => {
   response.send(allClosetitems);
 });
 
-//POST "/mycloset/add-closet-item
+//POST "/mycloset/newitem
 
 const addItemValidator = z.object({
-  closetId: z.number(),
   name: z.custom<Name>(),
   imgUrl: z.string(),
+  type: z.string(),
 });
 type addItem = z.infer<typeof addItemValidator>;
 
 app.post(
-  "/mycloset/add-closet-item",
+  "/mycloset/newitem",
   AuthMiddleware,
   async (request: AuthRequest, response) => {
     console.log(request.body);
+    console.log(request.userId);
+
+    if (!request.userId) {
+      response.status(500).send("Something went wrong");
+      return;
+    }
+
     const parsedBody = addItemValidator.safeParse(request.body);
 
     if (!parsedBody.success) {
@@ -136,37 +144,79 @@ app.post(
         message: "Error parsing request body",
         errors: parsedBody.error,
       });
-    } else {
-      await prisma.closetitems.create({
+      return;
+    }
+
+    // Get the user closet
+    const findUserCloset = await prisma.closet.findUnique({
+      where: {
+        userId: request.userId,
+      },
+    });
+    console.log(findUserCloset);
+
+    if (!findUserCloset && findUserCloset == undefined) {
+      // Create a new closet for the user if the current user do not have one
+      const createdCloset = await prisma.closet.create({
         data: {
-          closetId: parsedBody.data.closetId,
-          type: mapCategoryToType[parsedBody.data.name],
-          name: parsedBody.data.name,
-          imgUrl: parsedBody.data.imgUrl,
+          userId: request.userId,
         },
       });
 
-      response.status(201).send({ message: "New Item created!" });
+      // Create a new closet item
+      await prisma.closetitems.create({
+        data: {
+          closetId: createdCloset.id,
+          name: parsedBody.data.name,
+          type: parsedBody.data.type,
+          imgUrl: parsedBody.data.imgUrl,
+        },
+      });
+    } else {
+      //Create closet items to the current user
+      await prisma.closetitems.create({
+        data: {
+          closetId: findUserCloset.id,
+          name: parsedBody.data.name,
+          type: parsedBody.data.type,
+          imgUrl: parsedBody.data.imgUrl,
+        },
+      });
     }
+
+    // const updatedUserCloset = await prisma.closet.findUnique({
+    //   where: {
+    //     userId: request.userId,
+    //   },
+    //   include: {
+    //     items: true,
+    //   },
+    // });
+
+    response.status(201).send({ message: "New Item created!" });
   }
 );
 
 //DELETE  "/mycloset/items/:id"
 
-app.delete("/mycloset/items/:id", AuthMiddleware, async (request:AuthRequest, response) => {
-  const itemId = parseInt(request.params.id);
-  try {
-    await prisma.closetitems.delete({
-      where: {
-        id: itemId,
-      },
-    });
-    response.status(200).send({ message: "Item Deleted!" });
-  } catch (error) {
-    // If we get an error, send back HTTP 500 (Server Error)
-    response.status(500).send({ message: "Something went wrong!" });
+app.delete(
+  "/mycloset/items/:id",
+  AuthMiddleware,
+  async (request: AuthRequest, response) => {
+    const itemId = parseInt(request.params.id);
+    try {
+      await prisma.closetitems.delete({
+        where: {
+          id: itemId,
+        },
+      });
+      response.status(200).send({ message: "Item Deleted!" });
+    } catch (error) {
+      // If we get an error, send back HTTP 500 (Server Error)
+      response.status(500).send({ message: "Something went wrong!" });
+    }
   }
-});
+);
 
 //GET "/mycloset/items/:id",
 app.get(
@@ -205,14 +255,14 @@ app.get(
 );
 
 //DELETE "/mycloset/items/:id"
-app.delete("/mycloset/items/:id", async (request:AuthRequest, response) => {
+app.delete("/mycloset/items/:id", async (request: AuthRequest, response) => {
   const itemId = request.params.id;
-    const requestUser = request.userId;
-    
-    if (!requestUser) {
-      response.status(500).send({ message: `something went wrong` });
-      return;
-    }
+  const requestUser = request.userId;
+
+  if (!requestUser) {
+    response.status(500).send({ message: `something went wrong` });
+    return;
+  }
 
   const deletedItem = await prisma.closetitems.delete({
     where: {
@@ -282,8 +332,8 @@ const WeatherForecastDayValidator = z
 
 const WeatherForecastValidator = z.object({
   name: z.string(), //Name of location, e.g. Utrecht
-  value: z.array(WeatherForecastDayValidator), //today's and next days forecast
-  currentCondition: z
+  values: z.array(WeatherForecastDayValidator), //today's and next days forecast
+  currentConditions: z
     .object({
       //currently (now) the temperature and icon's condition
       temp: z.number(),
@@ -324,14 +374,14 @@ app.get(
         res.status(500).send(weatherData.error.flatten());
       } else {
         // Filter which categories should be considered for each day
-        const daysCategoriesRecommendation = weatherData.data.value.map(
+        const daysCategoriesRecommendation = weatherData.data.values.map(
           (day: WeatherForecastDay) => {
             return categoryRecommendation(day.temp, day.icon);
           }
         );
 
         // Use reduce function to combine all the categoriesRecommendation for each day
-        // result is what is the outcome of the reduce function, in this case just 1 array will all categories
+        // return just 1 array with all categories
         // element is each array from daily recommendation - we loop throught them in the reduce function
         const weekCategoriesRecommendationWithDuplicates =
           daysCategoriesRecommendation.reduce(
@@ -366,6 +416,9 @@ app.get(
         res.send(availableClosetItems);
       }
 
+      //weekCategoriesRecommendation
+      //availableClosetItems)
+
       // Generate the outfits
 
       // Return the outfits
@@ -376,114 +429,3 @@ app.get(
     }
   }
 );
-
-//-----------------------------------////-----------------------------------////-----------------------------------////-----------------------------------////-----------------------------------//
-// //GET "/category"
-// app.get("/category", async (request, response) => {
-//   const category = await prisma.category.findMany({
-//     select: {
-//       id: true,
-//       type: true,
-//       name: true,
-//       imgUrl: true,
-//       max_temp: true,
-//       min_temp: true,
-//       isRain: true,
-//       isSporty: true,
-//       isWarm: true,
-//       outfit: {
-//         select: {
-//           id: true,
-//           imgUrl: true,
-//         },
-//       },
-//     },
-//   });
-//   response.send(category);
-// });
-
-// //GET "/Category/[categoryId]"
-// app.get("/Category/:id", async (request, response) => {
-//   const categoryId = parseInt(request.params.id);
-//   if (isNaN(categoryId)) {
-//     response.status(400).send({
-//       message: `Requested ID needs to be a number.`,
-//     });
-//   } else {
-//     try {
-//       const categoryFromDatebase = await prisma.category.findUnique({
-//         where: {
-//           id: categoryId,
-//         },
-//         select: {
-//           id: true,
-//           type: true,
-//           name: true,
-//           imgUrl: true,
-//           max_temp: true,
-//           min_temp: true,
-//           isRain: true,
-//           isSporty: true,
-//           isWarm: true,
-//           outfit: {
-//             select: {
-//               id: true,
-//               imgUrl: true,
-//             },
-//           },
-//         },
-//       });
-//       if (!categoryFromDatebase) {
-//         response
-//           .status(404)
-//           .send({ message: `Cannot find category with ID ${categoryId}.` });
-//       } else {
-//         response.send(categoryFromDatebase);
-//       }
-//     } catch (error) {
-//       response.status(500).send(`Something went wrong.`);
-//     }
-//   }
-// });
-
-// ///GET "/outfit"
-// app.get(
-//     "/outfit",
-//     AuthMiddleware,
-//     async (request: AuthRequest, response) => {
-//       const requestedUser = request.userId;
-
-//       if (!requestedUser) {
-//         response.status(500).send({ message: "Something went wrong" });
-//         return;
-//       }
-
-//       const myOutfit = await prisma.outfits.findMany({
-//         where: {
-//           userId: requestedUser,
-//         },
-//         include: {
-//           category: {
-//             select: {
-//               id: true,
-//               name: true,
-//               imgUrl: true,
-
-//             },
-//           },
-//           user: {
-//             select: {
-//               id: true,
-//               username: true,
-//             },
-//           },
-//         },
-//       });
-
-//       if (!request.userId) {
-//         response.status(500).send("Something went wrong");
-//         return;
-//       }
-//       response.send(myOutfit);
-//     }
-//   );
