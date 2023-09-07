@@ -5,44 +5,66 @@ export interface ClosetItem {
   imgUrl: string;
 }
 
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * max);
+}
+
+export interface itemByType {
+  tops: ClosetItem[];
+  bottoms: ClosetItem[];
+  jumpsuits: ClosetItem[];
+  dresses: ClosetItem[];
+}
+
+// This function receives a list of ALL possible items for a day
 export const recommendOutfit = (closetItems: ClosetItem[]) => {
   //First find all closetItems available per type
-  let [tops, bottoms, jumpsuits, dresses]: ClosetItem[][] = closetItems.reduce(
-    (result: ClosetItem[][], item: ClosetItem) => {
-      if (item.type === "Tops") result[0].push(item);
-      else if (item.type === "Bottoms") result[1].push(item);
-      else if (item.type === "Jumpsuits") result[2].push(item);
-      else if (item.type === "Dresses") result[3].push(item);
+  let { tops, bottoms, jumpsuits, dresses }: itemByType = closetItems.reduce(
+    (result: itemByType, item: ClosetItem) => {
+      if (item.type === "Tops") result.tops.push(item);
+      else if (item.type === "Bottoms") result.bottoms.push(item);
+      else if (item.type === "Jumpsuits") result.jumpsuits.push(item);
+      else if (item.type === "Dresses") result.dresses.push(item);
       return result;
     },
-    [[], [], [], []]
+    {
+      tops: [],
+      bottoms: [],
+      jumpsuits: [],
+      dresses: [],
+    }
   );
 
-  // Start with the most available option:
-  const topBottomlenght = Math.min(tops.length, bottoms.length);
-  if (dresses.length === 0 && jumpsuits.length === 0 && topBottomlenght === 0) {
+  const choices = [];
+  if (bottoms.length > 0 && tops.length > 0) {
+    choices.push("bottom_top");
+  }
+  if (jumpsuits.length > 0) {
+    choices.push("jumpsuits");
+  }
+  if (dresses.length > 0) {
+    choices.push("dresses");
+  }
+
+  if (choices.length === 0) {
     return { items: [] };
   }
 
-  if (
-    jumpsuits.length >= dresses.length &&
-    jumpsuits.length >= topBottomlenght
-  ) {
-    return { items: [jumpsuits[Math.random() * jumpsuits.length].id] };
-  }
-  //if option order: jumpsuit>dress>topbottom, jumpsuit first
-  //choose one item with random.id
+  const choice = choices[getRandomInt(choices.length)];
 
-  if (dresses.length >= jumpsuits.length && dresses.length >= topBottomlenght) {
-    return { items: [dresses[Math.random() * dresses.length].id] };
-    //if option order: dress>jumpsuit>topbottom, dress first
-  } else if (tops.length > 0 && bottoms.length > 0) {
-    // There is at least one top one bottom
+  if (choice === "bottom_top") {
     return {
       items: [
-        tops[Math.random() * tops.length].id,
-        bottoms[Math.random() * bottoms.length].id,
+        tops[getRandomInt(tops.length)],
+        bottoms[getRandomInt(bottoms.length)],
       ],
     };
-  } else return { items: [] }; // Empty array since no cloths were found for outfit
+  }
+  if (choice === "jumpsuits") {
+    return { items: [jumpsuits[getRandomInt(jumpsuits.length)]] };
+  }
+  if (choice === "dresses") {
+    return { items: [dresses[getRandomInt(dresses.length)]] };
+  }
+  return { items: [] };
 };

@@ -47,6 +47,9 @@ export const categoryRecommendation = (
     matches.push("Tanks");
     matches.push("Blouses");
     matches.push("T-shirts");
+    matches.push("Jumpsuits");
+    matches.push("Jeans");
+    matches.push("Pants");
   }
   if (temperature > 30) {
     matches.push("Tanks");

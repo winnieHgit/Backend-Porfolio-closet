@@ -9,7 +9,7 @@ import { categoryRecommendation } from "./recommendation";
 import { mapCategoryToType, Name, Type } from "./type-category-match";
 import axios from "axios";
 import apiKeys from "./secrets/APIKEYs.json";
-import { recommendOutfit } from "./create-outfit";
+import { ClosetItem, recommendOutfit } from "./create-outfit";
 
 const app = express();
 
@@ -317,32 +317,37 @@ const recommendationQueryValidator = z.object({
   country: z.string(),
 });
 
-const WeatherForecastDayValidator = z
-  .object({
-    datetimeStr: z.string(), // string of date e.g. "2023-09-02T00:00:00+02:00"
-    datetime: z.number(), //milliseconds since epoch
-    icon: z.string(), //name of icon, e.g. partly-cloudy-day More info: https://www.visualcrossing.com/resources/documentation/weather-api/defining-icon-set-in-the-weather-api/
-    temp: z.number(), //mean or avg temp
-    mint: z.number(), //min temp
-    maxt: z.number(), //max temp
-    conditions: z.string(), //Description of weather
-    pop: z.number(), //Chance Precipitation/rain (%)
-  })
-  .partial();
+const WeatherForecastDayValidator = z.object({
+  datetimeStr: z.string(), // string of date e.g. "2023-09-02T00:00:00+02:00"
+  datetime: z.number(), //milliseconds since epoch
+  icon: z.string(), //name of icon, e.g. partly-cloudy-day More info: https://www.visualcrossing.com/resources/documentation/weather-api/defining-icon-set-in-the-weather-api/
+  temp: z.number(), //mean or avg temp
+  mint: z.number(), //min temp
+  maxt: z.number(), //max temp
+  conditions: z.string(), //Description of weather
+  pop: z.number(), //Chance Precipitation/rain (%)
+});
 
 const WeatherForecastValidator = z.object({
   name: z.string(), //Name of location, e.g. Utrecht
   values: z.array(WeatherForecastDayValidator), //today's and next days forecast
-  currentConditions: z
-    .object({
-      //currently (now) the temperature and icon's condition
-      temp: z.number(),
-      icon: z.string(),
-    })
-    .partial(),
+  currentConditions: z.object({
+    //currently (now) the temperature and icon's condition
+    temp: z.number(),
+    icon: z.string(),
+  }),
 });
 
 type WeatherForecastDay = z.infer<typeof WeatherForecastDayValidator>;
+
+interface DailyRecommendation {
+  day: number;
+  date: number;
+  temp: number;
+  weatherCondition: string;
+  outfitId?: number;
+  closetItems: ClosetItem[];
+}
 
 app.get(
   "/outfit/recommendation",
@@ -365,7 +370,6 @@ app.get(
         `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locationMode=single&locations=${parsedQuery.data.city},${parsedQuery.data.country}&aggregateHours=24&unitGroup=metric&shortColumnNames=true&forecastDays=7&iconSet=icons1&contentType=json&key=${apiKeys.weathervisualcrossing}`
       );
 
-      console.log(response.data);
       const weatherData = WeatherForecastValidator.safeParse(
         response.data.location
       );
@@ -380,52 +384,54 @@ app.get(
           }
         );
 
-        // Use reduce function to combine all the categoriesRecommendation for each day
-        // return just 1 array with all categories
-        // element is each array from daily recommendation - we loop throught them in the reduce function
-        const weekCategoriesRecommendationWithDuplicates =
-          daysCategoriesRecommendation.reduce(
-            (result: string[], element: string[]) => {
-              return result.concat(element);
+        let dailyRecommendations: DailyRecommendation[] = [];
+        for (let i = 0; i < daysCategoriesRecommendation.length; i++) {
+          const dayCategories = daysCategoriesRecommendation[i];
+          const availableClosetItems = await prisma.closet.findUnique({
+            where: {
+              userId: requestUser,
             },
-            []
-          );
-        const weekCategoriesRecommendation = [
-          ...new Set(weekCategoriesRecommendationWithDuplicates),
-        ];
-        // Get clothes from DB that match the category
-        const availableClosetItems = await prisma.closet.findMany({
-          where: {
-            userId: requestUser,
-          },
-          include: {
-            items: {
-              select: {
-                type: true,
-                name: true,
-                id: true,
-              },
-              where: {
-                name: { in: weekCategoriesRecommendation },
-                outfit: { is: null },
+            include: {
+              items: {
+                select: {
+                  type: true,
+                  name: true,
+                  id: true,
+                  imgUrl: true,
+                },
+                where: {
+                  name: { in: dayCategories }, // Only select the items that match the current weather
+                  outfit: { is: null }, //ClosetItem is set null for outfit
+                },
               },
             },
-          },
-        });
-        console.log(availableClosetItems);
-        res.send(availableClosetItems);
+          });
+
+          if (!availableClosetItems) {
+            res
+              .status(400)
+              .send({ message: "User has no clothes in database" });
+          } else {
+            // Generate the outfits
+            const closetItemsForOutfit = recommendOutfit(
+              availableClosetItems.items
+            );
+
+            if (closetItemsForOutfit.items.length > 0) {
+              dailyRecommendations.push({
+                day: i,
+                date: weatherData.data.values[i].datetime,
+                temp: weatherData.data.values[i].temp,
+                weatherCondition: weatherData.data.values[i].icon,
+                closetItems: closetItemsForOutfit.items,
+              });
+            }
+          }
+        }
+
+        // Return all the recommendations
+        res.send({ outfits: dailyRecommendations });
       }
-
-      //weekCategoriesRecommendation
-      //availableClosetItems)
-
-      // Generate the outfits
-
-      // Return the outfits
-
-      // Use this to filter the outfit of the users and then generate outfits and send them back
-      // res.send(categories);
-      // res.send(response.data);
     }
   }
 );
