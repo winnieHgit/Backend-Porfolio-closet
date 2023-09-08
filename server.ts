@@ -8,7 +8,6 @@ import { z } from "zod";
 import { categoryRecommendation } from "./recommendation";
 import { mapCategoryToType, Name, Type } from "./type-category-match";
 import axios from "axios";
-import apiKeys from "./secrets/APIKEYs.json";
 import { ClosetItem, recommendOutfit } from "./create-outfit";
 import bcrypt from "bcrypt";
 
