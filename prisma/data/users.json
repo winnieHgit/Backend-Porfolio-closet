@@ -1,12 +1,12 @@
 [
-  { "id": 1, "username": "Fashionista01", "password": "Pass123321" },
-  { "id": 2, "username": "StyleEnthusiast", "password": "Fashion456" },
-  { "id": 3, "username": "TrendyExplorer", "password": "Style789!" },
-  { "id": 4, "username": "ChicSeeker", "password": "TrendyPass" },
-  { "id": 5, "username": "GlamourGuru", "password": "GlamMY1234" },
-  { "id": 6, "username": "HauteCouture", "password": "ChicAS567" },
-  { "id": 7, "username": "RunwayRoyalty", "password": "model007Pass" },
-  { "id": 8, "username": "StreetStyleStar", "password": "StreetyO789" },
-  { "id": 9, "username": "ElegantEssence", "password": "elegant6PrincE" },
-  { "id": 10, "username": "FashionFusion", "password": "Fusion5678" }
+  { "id": 1, "username": "Fashionista01@gmail.com", "password": "Pass123321" },
+  { "id": 2, "username": "StyleEnthusiast@hotmail.com", "password": "Fashion456" },
+  { "id": 3, "username": "TrendyExplorer@gmail.com", "password": "Style789!" },
+  { "id": 4, "username": "ChicSeeker@yahoo.com", "password": "TrendyPass" },
+  { "id": 5, "username": "GlamourGuru@gmail.com", "password": "GlamMY1234" },
+  { "id": 6, "username": "HauteCouture@gmail.com", "password": "ChicAS567" },
+  { "id": 7, "username": "RunwayRoyalty@hotmail.com", "password": "model007Pass" },
+  { "id": 8, "username": "StreetStyleStar@yahoo.com", "password": "StreetyO789" },
+  { "id": 9, "username": "ElegantEssence@gmail.com", "password": "elegant6PrincE" },
+  { "id": 10, "username": "FashionFusion@gmail.com", "password": "Fusion5678" }
 ]

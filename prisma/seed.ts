@@ -2,7 +2,7 @@ import users from "../prisma/data/users.json";
 import closets from "../prisma/data/closets.json";
 import closetitems from "../prisma/data/closetitems.json";
 import outfits from "../prisma/data/outfits.json";
-
+import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -13,7 +13,7 @@ const seed = async () => {
     await prisma.users.create({
       data: {
         username: currentUser.username,
-        password: currentUser.password,
+        password: bcrypt.hashSync(currentUser.password,10)
       },
     });
   }

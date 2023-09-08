@@ -21,6 +21,7 @@ export const categoryRecommendation = (
     matches.push("Knitwear");
     matches.push("Pants");
     matches.push("Jeans");
+    matches.push("Sweatpants");
   }
 
   console.log(matches);
@@ -33,6 +34,7 @@ export const categoryRecommendation = (
     matches.push("Knitwear");
     matches.push("Pants");
     matches.push("Sweatshirts");
+    matches.push("Sweatpants");
   }
   if (20 < temperature && temperature < 30) {
     matches.push("Shorts");
@@ -42,7 +44,6 @@ export const categoryRecommendation = (
     matches.push("Skirts");
     matches.push("Actives");
     matches.push("Leggings");
-    matches.push("Hoodies");
     matches.push("Blazers");
     matches.push("Tanks");
     matches.push("Blouses");
@@ -50,13 +51,17 @@ export const categoryRecommendation = (
     matches.push("Jumpsuits");
     matches.push("Jeans");
     matches.push("Pants");
+    matches.push("Sweatpants");
   }
   if (temperature > 30) {
     matches.push("Tanks");
+    matches.push("T-shirts");
     matches.push("Shorts");
     matches.push("Short");
     matches.push("Skirts");
     matches.push("Blouses");
+    matches.push("Maxi");
+    matches.push("Midi");
   }
 
   return matches;

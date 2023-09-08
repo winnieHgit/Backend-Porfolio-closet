@@ -10,6 +10,7 @@ import { mapCategoryToType, Name, Type } from "./type-category-match";
 import axios from "axios";
 import apiKeys from "./secrets/APIKEYs.json";
 import { ClosetItem, recommendOutfit } from "./create-outfit";
+import bcrypt from "bcrypt";
 
 const app = express();
 
@@ -35,9 +36,13 @@ app.post("/signup", async (request, response) => {
   if (parsedBody.success) {
     try {
       const newUser = await prisma.users.create({
-        data: parsedBody.data,
+        data: {
+          username: parsedBody.data.username,
+          password: bcrypt.hashSync(parsedBody.data.password, 10),
+        },
       });
-      response.status(201).send(newUser);
+      response.status(201).send({ id: newUser.id, username: newUser.username });
+      //by sending the id& username, it won't show the user password
     } catch (error) {
       response.status(500).send({ message: "Something went wrong" });
     }
@@ -60,7 +65,7 @@ app.get("/users", async (request, response) => {
 //POST "/login"
 const LoginFormValidator = z
   .object({
-    username: z.string().nonempty().min(5),
+    username: z.string().nonempty().email(),
     password: z.string().min(10),
   })
   .strict();
@@ -76,13 +81,21 @@ app.post("/login", async (request, response) => {
           username: requestBody.username,
         },
       });
-      if (userToLogin && userToLogin.password === requestBody.password) {
-        const token = toToken({ userId: userToLogin.id });
-        response.status(200).send({ token: token });
-        return;
+      //Check if the found a user and if the password matches the one in the database
+      if (
+        userToLogin &&
+        bcrypt.compareSync(requestBody.password, userToLogin.password)
+      ) {
+        response
+          .status(200)
+          .send({ token: toToken({ userId: userToLogin.id }) });
+      }
+      // userToLogin.password === bcrypt.hashSync(requestBody.password,10)) {
+      // const token = toToken({ userId: userToLogin.id });
+      else {
+        response.status(400).send({ message: "Login failed" });
       }
       // If we didn't find the user or the password doesn't match, send back an error message
-      response.status(400).send({ message: "Login failed" });
     } catch (error) {
       // If we get an error, send back HTTP 500 (Server Error)
       response.status(500).send({ message: "Something went wrong!" });
@@ -129,9 +142,6 @@ app.post(
   "/mycloset/newitem",
   AuthMiddleware,
   async (request: AuthRequest, response) => {
-    console.log(request.body);
-    console.log(request.userId);
-
     if (!request.userId) {
       response.status(500).send("Something went wrong");
       return;

@@ -5,7 +5,7 @@
     "outfitId": 3,
     "type": "Tops",
     "name": "Tanks",
-    "imgUrl": "https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvczgwLXBhaS0xNzQ5XzMucG5n.png?s=JqZoQFcuDA7W3HEq4uGlBoHsG6nqobkkaqzHOYO5z9g"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/5478725b619b4d798dfcbf5c92162761/56c6f34a41ad4aaa98cf25cdcd6081ac.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "outfitId": 4,
     "type": "Tops",
     "name": "T-Shirts",
-    "imgUrl": "https://i.pinimg.com/474x/43/99/76/439976c37cf272bc3b1aca5d55d3d8fc.jpg"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/99bc8ed29f6a4f5db820bbc54e6413eb/707c48573c6f4bd1bf6b5e630a6b1ee9.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "outfitId": 1,
     "type": "Tops",
     "name": "Blouses",
-    "imgUrl": "https://p7.hiclipart.com/preview/904/214/350/blouse-t-shirt-sleeve-dress-women-s-european-border-stripe.jpg"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/ebce52ef54e144faa9ad8242792209a0/9e8e6fb7685d408a9efa3af8b3c11464.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 4,
@@ -29,14 +29,14 @@
     "outfitId": 2,
     "type": "Tops",
     "name": "Actives",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_hj80Zv1-F0PZoPecDcuRMsLkEKpnHJMCGA&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/17913fab1088490289f30fdcec5344fc/a83c5de9b4f04b64a72daa9aeb608226.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 5,
     "closetId": 2,
     "type": "Tops",
     "name": "Hoodies",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNInFrxmNgVGV6SW2vuLTVZ-ZAxLCP9xCwkQ&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/c20725be480045858d111ff336cf2208/150f3b677c5747e792faef6d4d25b61d.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 6,
@@ -44,7 +44,7 @@
     "outfitId": 3,
     "type": "Tops",
     "name": "Sweatshirts",
-    "imgUrl": "https://sc04.alicdn.com/kf/H26734bad0636455eb41d00772eee32886.jpg"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/4d5d29812243491e88ba7cc3b8a02a72/725d30d93c7c486b8cd2bf38fd514d88.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 7,
@@ -52,7 +52,7 @@
     "outfitId": 4,
     "type": "Tops",
     "name": "Sweaters",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfQ-CD5i52Lq7ZRcQ0u_xEyi5LUxlsyvbItw&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/f3eaa16e8fcd43e5b03398ce359256e0/9a6da29ae1fb4425b3af78510a06d0e9.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 8,
@@ -60,28 +60,28 @@
     "outfitId": 1,
     "type": "Tops",
     "name": "Blazers",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_9WngMY7jNRPYbAbLr_yhbjczSRqaUEA7mA&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/234536449bf63b37b58afabe03b42a26/95db4c3e24694ff2b8342282cc4345c8.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 9,
     "closetId": 3,
     "type": "Tops",
     "name": "Coats",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9lEsYcw-2WFvCrgJM7QypRR_3yFe4T2LKTg&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/7fbd9bd11ac4440297bf8c4045ce2011/68cd0a603845413fb03b59e9e187712d.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 10,
     "closetId": 2,
     "type": "Tops",
     "name": "Raincoats",
-    "imgUrl": "https://www.pngplay.com/wp-content/uploads/4/Raincoat-No-Background.png"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/8102676fc69a4d76af811fc0f545c52c/22df998bb58745af9209263926bd41e1.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 11,
     "closetId": 3,
     "type": "Tops",
     "name": "Jackets",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4w9NVNcld0u1niH2_y0yubZdwgZBYZSYtKQ&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/3e21997ce6824f959cd2b7c0851a0528/6396f3f8db894308b8645db93572ed70.jpg?imwidth=1800&filter=packshot"
   },
 
   {
@@ -90,7 +90,7 @@
     "outfitId": 1,
     "type": "Bottoms",
     "name": "Jeans",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGnUS4vJW94fkEfA5ciJCg6TwdOHek1f-pcQ&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/65f43183a7f142ed81e0ec8a65c4f75e/ee9e7d4e83084af4a7c035c185229456.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 13,
@@ -98,7 +98,7 @@
     "outfitId": 3,
     "type": "Bottoms",
     "name": "Shorts",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXhxH8ViCh6ALUwmOMtJY6N7Jx_bhz_Sd3S72I37SW8cPkCW2ZSXAiA62zugak2ZuatWM&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/735b3ce4c0e34aac8a644c201ee08cfa/aea57aea87064e65b1221d5b12c963dc.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 14,
@@ -106,7 +106,7 @@
     "outfitId": 4,
     "type": "Bottoms",
     "name": "Sweatpants",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqbGMSuLbG_ORy0qY4PxAZMiJ8IJ8sJFFcWA&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/082db62c16a5489cbd1f256c28905a46/7b9daeb5a9534d35bcc451a04b314efc.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 15,
@@ -114,7 +114,7 @@
     "outfitId": 3,
     "type": "Bottoms",
     "name": "Leggings",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLmS6E92PklO9Dec6OFxaQS8FVw8b2oo3qUvp_NQhpmLS7IIPx86QAiGTAAqbaYHsv3VM&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/4308ea8857a23238a6ecdc9f86cb4cf9/745894e4d1e14abea6a586aa5abdd428.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 16,
@@ -122,7 +122,7 @@
     "outfitId": 2,
     "type": "Bottoms",
     "name": "Actives",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg3A1Oo7aMIplGTs-5YH2EsbvF17ojIFqD3A&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/07d94cd885e846a09221f30f3a1798b4/41abca3f89534cf382788290801e0c57.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 17,
@@ -130,7 +130,7 @@
     "outfitId": 1,
     "type": "Bottoms",
     "name": "Pants",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLVe22xswWQS5m3SNdQFQ_UHi5Wfqx9Zix5Q&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/5f55b8520bfb40feb1d1bf3000015eba/7084d8a69b884dbeb7765d84a9ae9176.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 18,
@@ -138,7 +138,7 @@
     "outfitId": 4,
     "type": "Bottoms",
     "name": "Skirts",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaC-aWEFpjK6kpV3mji7goNQx3vEst2xGEZw&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/b4e49dabbe434d14ad55ddbb53f36619/d44fd77f5d854a3799c430ae865f80b2.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 19,
@@ -146,7 +146,7 @@
     "outfitId": 5,
     "type": "Jumpsuits",
     "name": "Jumpsuits",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPgybHty3-UeZQBOn4wVx0peXjCSaPM3cLGQ&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/2666130d944648209d472f9a90948c4b/ec04a6ed739940ce9710a04966e8ad97.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 20,
@@ -154,14 +154,14 @@
     "outfitId": 6,
     "type": "Dresses",
     "name": "Maxi",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjWin8TfCMXT7HUHKN-v4sX58v38bQH15Zbw&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/06b4f6d3dc24477facff5c0bd4180d5a/db8fdf1bac32445ebe1622b11a06a834.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 21,
     "closetId": 3,
     "type": "Dresses",
     "name": "Midi",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp2nA6tVBb2PbmQfA5AXU-zbcYP8Dd4GN9YA&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/3e10bed675384bbc94da61b03f406226/63fd3dd943e74b23b21aada8a9bf0a77.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 22,
@@ -169,13 +169,13 @@
     "outfitId": 7,
     "type": "Dresses",
     "name": "Short",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSODmVp7C7uJFeKn8TjSEWBenqAw9dHnZpVkw&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/b03b6a54d5f24479911c2d279d94abf5/a461e69f566447608e9739e3892b4469.jpg?imwidth=1800&filter=packshot"
   },
   {
     "id": 23,
     "closetId": 3,
     "type": "Dresses",
     "name": "Knitwear",
-    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-ogCxMvTxC6IHypjFjrwIx4Ajw5LHOYTbTQ&usqp=CAU"
+    "imgUrl": "https://img01.ztat.net/article/spp-media-p1/fc6d85ab592c4153898508fb1a7c3056/3d4f04d5407a47078ba02250d0fb07cb.jpg?imwidth=1800&filter=packshot"
   }
 ]
