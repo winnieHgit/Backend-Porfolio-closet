@@ -8,7 +8,6 @@ import { z } from "zod";
 import { categoryRecommendation } from "./recommendation";
 import { mapCategoryToType, Name, Type } from "./type-category-match";
 import axios from "axios";
-import apiKeys from "./secrets/APIKEYs.json";
 import { ClosetItem, recommendOutfit } from "./create-outfit";
 import bcrypt from "bcrypt";
 
@@ -44,7 +43,10 @@ app.post("/signup", async (request, response) => {
       response.status(201).send({ id: newUser.id, username: newUser.username });
       //by sending the id& username, it won't show the user password
     } catch (error) {
-      response.status(500).send({ message: "Something went wrong" });
+      console.log("signup error: ", error);
+      response
+        .status(500)
+        .send({ message: "Something went wrong with signup" });
     }
   } else {
     response.status(400).send(parsedBody.error.flatten());
@@ -98,7 +100,10 @@ app.post("/login", async (request, response) => {
       // If we didn't find the user or the password doesn't match, send back an error message
     } catch (error) {
       // If we get an error, send back HTTP 500 (Server Error)
-      response.status(500).send({ message: "Something went wrong!" });
+      console.log("login error:", error);
+      response
+        .status(500)
+        .send({ message: "Something went wrong with login", error });
     }
   } else {
     response.status(400).send(parsedBody.error.flatten());
@@ -223,7 +228,10 @@ app.delete(
       response.status(200).send({ message: "Item Deleted!" });
     } catch (error) {
       // If we get an error, send back HTTP 500 (Server Error)
-      response.status(500).send({ message: "Something went wrong!" });
+      console.log("delete item error:", error);
+      response
+        .status(500)
+        .send({ message: "Something went wrong with delete item" });
     }
   }
 );
@@ -237,7 +245,9 @@ app.get(
     const requestUser = request.userId;
 
     if (!requestUser) {
-      response.status(500).send({ message: `something went wrong` });
+      response.status(500).send({
+        message: "something went wrong retrieving the user from token",
+      });
       return;
     }
 
@@ -270,7 +280,9 @@ app.delete("/mycloset/items/:id", async (request: AuthRequest, response) => {
   const requestUser = request.userId;
 
   if (!requestUser) {
-    response.status(500).send({ message: `something went wrong` });
+    response
+      .status(500)
+      .send({ message: "something went wrong retrieving the user from token" });
     return;
   }
 
@@ -292,11 +304,12 @@ app.get("/outfits", AuthMiddleware, async (request: AuthRequest, response) => {
   const requestUser = request.userId;
 
   if (!requestUser) {
-    response.status(500).send({ message: `something went wrong` });
+    response
+      .status(500)
+      .send({ message: "something went wrong retrieving the user from token" });
     return;
   }
 
-  console.log;
   const outfits = await prisma.outfits.findMany({
     where: {
       userId: requestUser,
@@ -321,10 +334,8 @@ app.get("/outfits", AuthMiddleware, async (request: AuthRequest, response) => {
 
 //GET "/outfit/recommendation"
 const recommendationQueryValidator = z.object({
-  // temp: z.string(),
-  // condition: z.string(),
-  city: z.string(),
-  country: z.string(),
+  lat: z.string(),
+  lon: z.string(),
 });
 
 const WeatherForecastDayValidator = z.object({
@@ -366,26 +377,40 @@ app.get(
     const requestUser = req.userId;
 
     if (!requestUser) {
-      res.status(500).send({ message: `User not logged in` });
+      res.status(500).send({
+        message: "something went wrong retrieving the user from token",
+      });
       return;
     }
-
     const parsedQuery = recommendationQueryValidator.safeParse(req.query);
     // Check query parameters (maybe amount of days)
     if (!parsedQuery.success) {
-      res.status(400).send(parsedQuery.error.flatten());
+      console.log(
+        "Failed to parse query params (lat, lon)",
+        parsedQuery.error.flatten()
+      );
+      res.status(400).send({
+        message: "Failed to parse query params, specify lat and lon",
+        errors: parsedQuery.error.flatten(),
+      });
     } else {
       // Make API request to weather API to get the weather condition and temperatures
       const response = await axios.get(
-        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locationMode=single&locations=${parsedQuery.data.city},${parsedQuery.data.country}&aggregateHours=24&unitGroup=metric&shortColumnNames=true&forecastDays=7&iconSet=icons1&contentType=json&key=${apiKeys.weathervisualcrossing}`
+        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locationMode=single&locations=${parsedQuery.data.lat},${parsedQuery.data.lon}&aggregateHours=24&unitGroup=metric&shortColumnNames=true&forecastDays=7&iconSet=icons1&contentType=json&key=${process.env["WEATHER_VISUAL_API_KEY"]}`
       );
+
+      // console.log("Response from weather forecast", response);
+      // console.log("Lat:", parsedQuery.data.lat, ", Lon:", parsedQuery.data.lon);
 
       const weatherData = WeatherForecastValidator.safeParse(
         response.data.location
       );
 
       if (!weatherData.success) {
-        res.status(500).send(weatherData.error.flatten());
+        res.status(500).send({
+          message: "Failed to get weather data",
+          errors: weatherData.error.flatten(),
+        });
       } else {
         // Filter which categories should be considered for each day
         const daysCategoriesRecommendation = weatherData.data.values.map(
@@ -395,6 +420,7 @@ app.get(
         );
 
         let dailyRecommendations: DailyRecommendation[] = [];
+        let takenClosetItemIds: number[] = []; //Keep track of all clothes selected as recommendation
         for (let i = 0; i < daysCategoriesRecommendation.length; i++) {
           const dayCategories = daysCategoriesRecommendation[i];
           const availableClosetItems = await prisma.closet.findUnique({
@@ -412,15 +438,22 @@ app.get(
                 where: {
                   name: { in: dayCategories }, // Only select the items that match the current weather
                   outfit: { is: null }, //ClosetItem is set null for outfit
+                  id: { notIn: takenClosetItemIds },
                 },
               },
             },
           });
 
+          // DEBUG THE DATA FOR OUTFITS RECOMMENDATION:
+          // console.log("Day ", i, " - Taken cloths", takenClosetItemIds);
+          // console.log("Categories to pick ", dayCategories);
+          // console.log("available", availableClosetItems?.items);
+
           if (!availableClosetItems) {
-            res
-              .status(400)
-              .send({ message: "User has no clothes in database" });
+            res.status(400).send({
+              message:
+                "User has no clothes in database for the categories required",
+            });
           } else {
             // Generate the outfits
             const closetItemsForOutfit = recommendOutfit(
@@ -435,6 +468,11 @@ app.get(
                 weatherCondition: weatherData.data.values[i].icon,
                 closetItems: closetItemsForOutfit.items,
               });
+
+              // Add the ids of the clothes taken as recommendation
+              takenClosetItemIds.push(closetItemsForOutfit.items[0].id);
+              if (closetItemsForOutfit.items.length > 1)
+                takenClosetItemIds.push(closetItemsForOutfit.items[1].id);
             }
           }
         }
